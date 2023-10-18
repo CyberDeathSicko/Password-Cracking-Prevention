@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(90deg, #1f1c2c, #2a3f73);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #333;
+            max-width: 800px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            flex: 1;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            background-color: #0099CC;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input, button {
+            margin: 10px 0;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .captcha {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        img {
+            max-width: 100%;
+            border: 2px solid #0099CC;
+            border-radius: 10px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .sidebar {
+            background: #0099CC;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .sidebar h3 {
+            color: #fff;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .sidebar p {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Password Cracking Prevention</h1>
+        <div class="content">
+            <div class="form-container">
+                <h2>User Registration</h2>
+                <form id="registration">
+                    <input type="text" placeholder="Username" id="username" required>
+                    <input type="password" placeholder="Password" id="password" required>
+                    <div class="captcha">
+                        <img src="captcha_image.jpg" alt="CAPTCHA">
+                        <input type="text" placeholder="Enter CAPTCHA" id="captcha" required>
+                    </div>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+            <div class="sidebar">
+                <h3>Side Bar</h3>
+                <p>Welcome to the future of web security. Your data is safe with us.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Registration Form
+        document.addEventListener("DOMContentLoaded", function () {
+            const registrationForm = document.getElementById("registration");
+
+            registrationForm.addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const username = document.getElementById("username").value;
+                const captcha = document.getElementById("captcha").value;
+
+                if (username) {
+                    try {
+                        const captchaResponse = await verifyCaptcha(captcha);
+                        if (captchaResponse) {
+                            alert("Registration successful! Welcome to the future.");
+                        } else {
+                            alert("CAPTCHA verification failed. Registration failed. Please check your input.");
+                        }
+                    } catch (error) {
+                        alert("An error occurred during registration. Try again in the future.");
+                    }
+                } else {
+                    alert("Please fill in all required fields.");
+                }
+            });
+
+            async function verifyCaptcha(captcha) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(captcha === "12345");
+                    }, 1000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
